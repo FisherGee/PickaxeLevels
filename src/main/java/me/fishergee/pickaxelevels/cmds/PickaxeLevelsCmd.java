@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -23,18 +24,25 @@ public class PickaxeLevelsCmd implements CommandExecutor {
             return true;
         }
 
+        if(args.length == 0){
+            sender.sendMessage(ChatColor.GREEN + "Use /pickaxelevels give");
+        }
+
         if(args.length == 1){
             if(args[0].equalsIgnoreCase("give")){
                 ItemStack vanPickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
                 ItemMeta itemMeta = vanPickaxe.getItemMeta();
 
+                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&b&lSUPER &f&lPICKAXE"));
                 List<String> lore = new ArrayList<>();
-                lore.add("Total blocks mined: 0");
-                lore.add("Blocks till next level: 55");
-                lore.add("Level: 1");
+                lore.add(ChatColor.translateAlternateColorCodes('&',"&bTotal blocks mined: &f0"));
+                lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f55"));
+                lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f1"));
 
                 itemMeta.setLore(lore);
                 itemMeta.setUnbreakable(true);
+                itemMeta.addEnchant(Enchantment.DIG_SPEED, 1, true);
+                itemMeta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 1, true);
                 vanPickaxe.setItemMeta(itemMeta);
 
                 NBTItem customPickaxe = new NBTItem(vanPickaxe);

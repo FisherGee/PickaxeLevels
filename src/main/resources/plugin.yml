@@ -1,0 +1,9 @@
+name: PickaxeLevels
+version: ${project.version}
+main: me.fishergee.pickaxelevels.Core
+authors: [FisherGee]
+description: A plugin to give all players the item in your hand.
+commands:
+  pickaxelevels:
+    description: Give player a pickaxe
+    usage: /pickaxelevels

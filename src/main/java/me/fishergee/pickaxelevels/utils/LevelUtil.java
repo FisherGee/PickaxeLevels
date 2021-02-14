@@ -1,7 +1,9 @@
 package me.fishergee.pickaxelevels.utils;
 
 import de.tr7zw.nbtapi.NBTItem;
+import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -15,17 +17,16 @@ public class LevelUtil {
     is a variation of the custom pickaxe
      */
 
-    public static ItemStack updateLore(ItemStack item, int broken){
+    public static void updateLore(ItemStack item, int broken){
         ItemMeta itemMeta = item.getItemMeta();
 
         List<String> lore = new ArrayList<>();
-        lore.add("Total blocks mined: " + broken);
-        lore.add("Blocks till next level: " + (55 - broken));
-        lore.add("Level: " + (Math.abs(broken / 55)));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&bTotal blocks mined: &f" + broken));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f" + (55 - (broken % 55))));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f" + (Math.abs(broken / 55) + 1)));
 
+        itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
-
-        return item;
     }
 
     public static boolean levelSuffice(ItemStack item){
@@ -52,13 +53,13 @@ public class LevelUtil {
         }
     }
 
-    public static void upgradePickaxe(ItemStack item){
-        ItemMeta itemMeta = item.getItemMeta();
-        NBTItem nbtItem = new NBTItem(item);
-        int level = nbtItem.getInteger("level");
-
-        itemMeta.addEnchant(Enchantment.DIG_SPEED, level,true);
-
-        item.setItemMeta(itemMeta);
+    public static int findCustomPickaxeIndex(Inventory inventory){
+        for(int i = 0; i < inventory.getSize(); i++){
+            NBTItem nbtItem = new NBTItem(inventory.getItem(i));
+            if(nbtItem.getString("id").equals("pickaxelevels")){
+                return i;
+            }
+        }
+        return -1;
     }
 }

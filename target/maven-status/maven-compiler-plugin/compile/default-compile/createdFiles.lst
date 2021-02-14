@@ -1,0 +1,4 @@
+me\fishergee\pickaxelevels\cmds\PickaxeLevelsCmd.class
+me\fishergee\pickaxelevels\Core.class
+me\fishergee\pickaxelevels\listeners\BlockBreakListener.class
+me\fishergee\pickaxelevels\utils\LevelUtil.class
