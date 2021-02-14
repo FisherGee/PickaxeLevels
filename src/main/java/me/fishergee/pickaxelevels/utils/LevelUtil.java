@@ -22,8 +22,8 @@ public class LevelUtil {
 
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.translateAlternateColorCodes('&',"&bTotal blocks mined: &f" + broken));
-        lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f" + (55 - (broken % 55))));
-        lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f" + (Math.abs(broken / 55) + 1)));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f" + (500 - (broken % 500))));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f" + (Math.abs(broken / 500) + 1)));
 
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
@@ -34,7 +34,7 @@ public class LevelUtil {
 
         int blocksBroken = nbtItem.getInteger("broken");
 
-        if(blocksBroken % 55 == 0){
+        if(blocksBroken % 500 == 0){
             return true;
         }else{
             return false;
@@ -46,7 +46,7 @@ public class LevelUtil {
 
         int blocksBroken = nbtItem.getInteger("broken");
 
-        if(blocksBroken / 55 == 600){
+        if(blocksBroken / 500 == 600){
             return true;
         }else{
             return false;

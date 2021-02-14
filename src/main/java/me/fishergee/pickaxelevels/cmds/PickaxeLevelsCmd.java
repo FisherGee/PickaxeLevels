@@ -29,43 +29,48 @@ public class PickaxeLevelsCmd implements CommandExecutor {
         }
 
         if(args.length == 1){
-            if(args[0].equalsIgnoreCase("give")){
-                ItemStack vanPickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
-                ItemMeta itemMeta = vanPickaxe.getItemMeta();
+            if(sender.isOp()){
+                if(args[0].equalsIgnoreCase("give")){
+                    ItemStack vanPickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
+                    ItemMeta itemMeta = vanPickaxe.getItemMeta();
 
-                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&b&lSUPER &f&lPICKAXE"));
-                List<String> lore = new ArrayList<>();
-                lore.add(ChatColor.translateAlternateColorCodes('&',"&bTotal blocks mined: &f0"));
-                lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f55"));
-                lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f1"));
+                    itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&b&lSUPER &f&lPICKAXE"));
+                    List<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.translateAlternateColorCodes('&',"&bTotal blocks mined: &f0"));
+                    lore.add(ChatColor.translateAlternateColorCodes('&',"&bBlocks till next level: &f500"));
+                    lore.add(ChatColor.translateAlternateColorCodes('&',"&bLevel: &f1"));
 
-                itemMeta.setLore(lore);
-                itemMeta.setUnbreakable(true);
-                itemMeta.addEnchant(Enchantment.DIG_SPEED, 1, true);
-                itemMeta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 1, true);
-                vanPickaxe.setItemMeta(itemMeta);
+                    itemMeta.setLore(lore);
+                    itemMeta.setUnbreakable(true);
+                    itemMeta.addEnchant(Enchantment.DIG_SPEED, 1, true);
+                    itemMeta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 1, true);
+                    vanPickaxe.setItemMeta(itemMeta);
 
-                NBTItem customPickaxe = new NBTItem(vanPickaxe);
+                    NBTItem customPickaxe = new NBTItem(vanPickaxe);
 
-                customPickaxe.setInteger("broken", 0);
-                customPickaxe.setInteger("level", 1);
-                customPickaxe.setString("id", "pickaxelevels");
+                    customPickaxe.setInteger("broken", 0);
+                    customPickaxe.setInteger("level", 1);
+                    customPickaxe.setString("id", "pickaxelevels");
 
 
-                if(!(sender instanceof Player)){
-                    sender.sendMessage(ChatColor.RED + "Only players can execute this command.");
-                }
-                else{
-                    Player player = (Player) sender;
-                    Inventory inventory = player.getInventory();
-
-                    if(inventory.firstEmpty() == - 1){
-                        player.sendMessage(ChatColor.RED + "Your inventory is full.");
+                    if(!(sender instanceof Player)){
+                        sender.sendMessage(ChatColor.RED + "Only players can execute this command.");
                     }
                     else{
-                        inventory.addItem(customPickaxe.getItem());
+                        Player player = (Player) sender;
+                        Inventory inventory = player.getInventory();
+
+                        if(inventory.firstEmpty() == - 1){
+                            player.sendMessage(ChatColor.RED + "Your inventory is full.");
+                        }
+                        else{
+                            inventory.addItem(customPickaxe.getItem());
+                        }
                     }
+            }else{
+                    sender.sendMessage(ChatColor.RED + "You must be OP to perform this command!");
                 }
+
             }
         }
 
