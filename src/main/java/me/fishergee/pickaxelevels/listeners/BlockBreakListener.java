@@ -49,8 +49,9 @@ public class BlockBreakListener implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 10);
 
             }
+            player.getInventory().setItem(LevelUtil.findCustomPickaxeIndex(player.getInventory()), nbtItem.getItem());
         }
 
-        player.getInventory().setItem(LevelUtil.findCustomPickaxeIndex(player.getInventory()), nbtItem.getItem());
+
     }
 }
